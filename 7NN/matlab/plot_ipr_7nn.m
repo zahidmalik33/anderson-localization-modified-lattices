@@ -1,0 +1,213 @@
+%% Plot band-center IPR data for the 7NN lattice
+%
+% Reads the original Python log file used for the paper calculations.
+%
+% Input:
+%   7NN/data/paper/ipr_7nn_paper.log
+%
+% Output:
+%   1. Mean ln(IPR) versus disorder strength W
+%   2. Typical IPR versus disorder strength W
+
+clear;
+clc;
+close all;
+
+
+%% =====================================================
+% Locate the repository data file
+% ======================================================
+
+script_directory = fileparts(mfilename('fullpath'));
+
+data_file = fullfile( ...
+    script_directory, ...
+    '..', ...
+    'data', ...
+    'paper', ...
+    'ipr_7nn_paper.log' ...
+);
+
+if ~isfile(data_file)
+    error('Data file not found:\n%s', data_file);
+end
+
+text_data = fileread(data_file);
+
+
+%% =====================================================
+% Separate the data into lattice-size blocks
+% ======================================================
+
+blocks = regexp( ...
+    text_data, ...
+    '==========\s*L\s*=\s*(\d+)\s*==========\s*(.*?)(?==========|$)', ...
+    'tokens', ...
+    'dotall' ...
+);
+
+if isempty(blocks)
+    error('No lattice-size blocks were found in the log file.');
+end
+
+
+%% =====================================================
+% Extract W, mean ln(IPR), and typical IPR
+% ======================================================
+
+all_W = cell(1, length(blocks));
+all_mean_log_ipr = cell(1, length(blocks));
+all_typical_ipr = cell(1, length(blocks));
+lattice_sizes = zeros(1, length(blocks));
+
+data_pattern = [ ...
+    'W\s*=\s*([\d.+\-eE]+),\s*' ...
+    'Mean\s+ln\(IPR\)\s*=\s*([\d.+\-eE]+),\s*' ...
+    'IPR_typ\s*=\s*([\d.+\-eE]+)' ...
+];
+
+
+for block_index = 1:length(blocks)
+
+    lattice_sizes(block_index) = str2double(blocks{block_index}{1});
+    current_block = blocks{block_index}{2};
+
+    extracted_data = regexp( ...
+        current_block, ...
+        data_pattern, ...
+        'tokens' ...
+    );
+
+    if isempty(extracted_data)
+        warning( ...
+            'No IPR data found for L = %d.', ...
+            lattice_sizes(block_index) ...
+        );
+
+        all_W{block_index} = [];
+        all_mean_log_ipr{block_index} = [];
+        all_typical_ipr{block_index} = [];
+
+        continue;
+    end
+
+    number_of_points = length(extracted_data);
+
+    W = zeros(number_of_points, 1);
+    mean_log_ipr = zeros(number_of_points, 1);
+    typical_ipr = zeros(number_of_points, 1);
+
+    for point_index = 1:number_of_points
+
+        W(point_index) = str2double( ...
+            extracted_data{point_index}{1} ...
+        );
+
+        mean_log_ipr(point_index) = str2double( ...
+            extracted_data{point_index}{2} ...
+        );
+
+        typical_ipr(point_index) = str2double( ...
+            extracted_data{point_index}{3} ...
+        );
+    end
+
+    all_W{block_index} = W;
+    all_mean_log_ipr{block_index} = mean_log_ipr;
+    all_typical_ipr{block_index} = typical_ipr;
+end
+
+
+%% =====================================================
+% Plot 1: Mean logarithmic IPR versus W
+% ======================================================
+
+figure;
+hold on;
+box on;
+
+plot_colors = lines(length(blocks));
+markers = {'o', 's', 'd', '^', 'v', '>', '<', 'p', 'h', '+'};
+
+for block_index = 1:length(blocks)
+
+    if isempty(all_W{block_index})
+        continue;
+    end
+
+    marker = markers{ ...
+        mod(block_index - 1, length(markers)) + 1 ...
+    };
+
+    plot( ...
+        all_W{block_index}, ...
+        all_mean_log_ipr{block_index}, ...
+        'LineWidth', 1.5, ...
+        'Color', plot_colors(block_index, :), ...
+        'Marker', marker, ...
+        'DisplayName', ...
+        sprintf('L = %d', lattice_sizes(block_index)) ...
+    );
+end
+
+xlabel('$W$', 'Interpreter', 'latex', 'FontSize', 14);
+ylabel('$\langle \ln(\mathrm{IPR}) \rangle$', ...
+    'Interpreter', 'latex', 'FontSize', 14);
+
+legend('show', 'Location', 'best');
+set(gca, ...
+    'FontSize', 12, ...
+    'FontWeight', 'bold', ...
+    'LineWidth', 1.5, ...
+    'TickDir', 'in', ...
+    'XMinorTick', 'on', ...
+    'YMinorTick', 'on' ...
+);
+
+hold off;
+
+
+%% =====================================================
+% Plot 2: Typical IPR versus W
+% ======================================================
+
+figure;
+hold on;
+box on;
+
+for block_index = 1:length(blocks)
+
+    if isempty(all_W{block_index})
+        continue;
+    end
+
+    marker = markers{ ...
+        mod(block_index - 1, length(markers)) + 1 ...
+    };
+
+    plot( ...
+        all_W{block_index}, ...
+        all_typical_ipr{block_index}, ...
+        'LineWidth', 1.5, ...
+        'Color', plot_colors(block_index, :), ...
+        'Marker', marker, ...
+        'DisplayName', ...
+        sprintf('L = %d', lattice_sizes(block_index)) ...
+    );
+end
+
+xlabel('$W$', 'Interpreter', 'latex', 'FontSize', 14);
+ylabel('$\mathrm{IPR}_{\mathrm{typ}}$', ...
+    'Interpreter', 'latex', 'FontSize', 14);
+
+legend('show', 'Location', 'best');
+set(gca, ...
+    'FontSize', 12, ...
+    'FontWeight', 'bold', ...
+    'LineWidth', 1.5, ...
+    'TickDir', 'in', ...
+    'XMinorTick', 'on', ...
+    'YMinorTick', 'on' ...
+);
+
+hold off;
