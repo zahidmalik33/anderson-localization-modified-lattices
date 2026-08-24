@@ -327,7 +327,7 @@ Large production calculations should preferably be performed on a high-performan
 
 This repository accompanies the manuscript:
 
-> > **Influence of local connectivity on the Anderson transition beyond bandwidth broadening**
+> **Influence of local connectivity on the Anderson transition beyond bandwidth broadening**
 
 The complete journal citation and DOI will be added after publication.
 
