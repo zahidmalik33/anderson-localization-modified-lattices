@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use the computational codes or processed numerical data in this repository, please cite this software and the associated research article."
+
+title: "Computational codes for Influence of local connectivity on the Anderson transition beyond bandwidth broadening"
+
+type: software
+
+authors:
+  - family-names: Malik
+    given-names: Mohammed Zahid
+
+version: 1.1.1
+date-released: 2026-08-24
+
+repository-code: "https://github.com/zahidmalik33/anderson-localization-modified-lattices"
+
+url: "https://github.com/zahidmalik33/anderson-localization-modified-lattices"
+
+license: MIT
+
+keywords:
+  - Anderson localization
+  - disorder
+  - inverse participation ratio
+  - level-spacing statistics
+  - finite-size scaling
+  - three-dimensional lattices
+  - localization transition
+  - typical IPR
+  - 7NN lattice
+  - 8NN lattice
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Malik
+      given-names: Mohammed Zahid
+    - family-names: Ghosh
+      given-names: Raja
+  title: "Influence of local connectivity on the Anderson transition beyond bandwidth broadening"
+  journal: "Physical Review B"
+  year: 2026
