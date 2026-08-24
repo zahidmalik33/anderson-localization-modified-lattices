@@ -1,12 +1,27 @@
 # Influence of local connectivity on the Anderson transition beyond bandwidth broadening
 
-This repository contains the numerical codes and processed data used in the study:
+This repository contains numerical codes and processed data associated with the study:
 
 **Influence of local connectivity on the Anderson transition beyond bandwidth broadening**
 
-The project investigates Anderson localization in modified three-dimensional cubic lattices with coordination numbers 7 and 8. The numerical analysis uses the typical inverse participation ratio and the consecutive level-spacing ratio to characterize the transition between extended and localized states.
+The work investigates Anderson localization in modified three-dimensional cubic lattices with coordination numbers (7) and (8). The localization transition is characterized using the consecutive level-spacing ratio and the inverse participation ratio (IPR).
 
-Python is used to construct the Hamiltonians and calculate the localization quantities. MATLAB is used to reproduce the raw-data plots and finite-size scaling-collapse figures.
+For the IPR finite-size scaling analysis, the **typical IPR**
+
+[
+\mathrm{IPR}_{\mathrm{typ}}
+===========================
+
+\exp\left[
+\left\langle
+\ln(\mathrm{IPR})
+\right\rangle
+\right]
+]
+
+is used.
+
+Python is used to construct the lattice Hamiltonians and perform the numerical diagonalization and localization calculations. MATLAB scripts are provided for plotting the processed data and reproducing the corresponding finite-size scaling analyses.
 
 ---
 
@@ -14,89 +29,136 @@ Python is used to construct the Hamiltonians and calculate the localization quan
 
 The single-particle Anderson Hamiltonian is
 
-\[
+[
 H=-t\sum_{\langle i,j\rangle}
 \left(c_i^\dagger c_j+c_j^\dagger c_i\right)
 +\sum_i \epsilon_i c_i^\dagger c_i ,
-\]
+]
 
 where:
 
-- \(t=1\) is the hopping amplitude;
-- \(\epsilon_i\) is the on-site disorder;
-- \(\epsilon_i\) is sampled from a uniform box distribution
-  \([-W/2,W/2]\);
-- \(W\) is the disorder strength;
-- periodic boundary conditions are used.
+* (t=1) is the hopping amplitude;
+* (\langle i,j\rangle) denotes connected site pairs (hopping bonds);
+* (\epsilon_i) is the random on-site energy;
+* (\epsilon_i) is sampled independently from the uniform distribution
+  ([-W/2,W/2]);
+* (W) is the disorder strength;
+* periodic boundary conditions are used.
 
-Two modified cubic lattices are considered.
+Two modified cubic lattice realizations are considered.
 
 ### 7NN lattice
 
-Each lattice site has seven nearest-neighbour connections. The ordinary cubic-lattice hopping is supplemented with an additional diagonal hopping pattern.
+The 7NN lattice is obtained by supplementing the ordinary simple-cubic hopping network with an additional alternating pattern of diagonal hopping bonds.
+
+The resulting lattice has a uniform coordination number
+
+[
+\mathrm{CN}=7
+]
+
+under periodic boundary conditions.
 
 ### 8NN lattice
 
-Each lattice site has eight nearest-neighbour connections. Two additional diagonal connections are introduced through a checkerboard-type pattern.
+The 8NN lattice is constructed by introducing two additional diagonal hopping connections according to a checkerboard-type parity pattern.
 
-The lattice-generation scripts verify that the Hamiltonian is symmetric and that every lattice site has the required coordination number.
+The resulting lattice has a uniform coordination number
+
+[
+\mathrm{CN}=8
+]
+
+under periodic boundary conditions.
+
+The lattice-generation scripts verify that the Hamiltonian is symmetric and that every site has the required coordination number.
 
 ---
 
 ## Localization quantities
 
-### Typical inverse participation ratio
+### Inverse participation ratio
 
-For a normalized eigenstate \(\psi_n\), the inverse participation ratio is
+For a normalized eigenstate (\psi_n), the inverse participation ratio is
 
-\[
-\mathrm{IPR}_n=\sum_i |\psi_n(i)|^4.
-\]
+[
+\mathrm{IPR}_n
+==============
 
-The typical IPR is calculated as
+\sum_i |\psi_n(i)|^4.
+]
 
-\[
+For the band-center finite-size scaling analysis, the logarithmic IPR is averaged over the selected eigenstates and disorder realizations. The typical IPR is then calculated as
+
+[
 \mathrm{IPR}_{\mathrm{typ}}
-=
+===========================
+
 \exp\left[
 \left\langle
 \ln(\mathrm{IPR})
 \right\rangle
 \right].
-\]
+]
 
-The finite-size scaling form used for the IPR collapse is
+The corresponding scaling form is
 
-\[
+[
 \mathrm{IPR}_{\mathrm{typ}}(W,L)
-=
-L^{-\tau}
-F\left[(W-W_c)L^{1/\nu}\right].
-\]
+================================
+
+L^{-D_2}
+F\left[(W-W_c)L^{1/\nu}\right],
+]
+
+where (W_c) is the critical disorder strength, (\nu) is the correlation-length exponent, and (D_2) is the correlation (multifractal) dimension.
+
+The processed data therefore contain both
+
+[
+\left\langle\ln(\mathrm{IPR})\right\rangle
+]
+
+and
+
+[
+\mathrm{IPR}_{\mathrm{typ}}
+===========================
+
+\exp\left[
+\left\langle\ln(\mathrm{IPR})\right\rangle
+\right].
+]
 
 ### Consecutive level-spacing ratio
 
-For ordered eigenvalues \(E_n\), the level spacings are
+For ordered eigenvalues (E_n), the consecutive level spacings are
 
-\[
+[
 \delta_n=E_{n+1}-E_n.
-\]
+]
 
-The consecutive spacing ratio is
+The consecutive level-spacing ratio is
 
-\[
+[
 r_n=
 \frac{\min(\delta_n,\delta_{n+1})}
 {\max(\delta_n,\delta_{n+1})}.
-\]
+]
 
-The disorder-averaged value \(\langle r\rangle\) distinguishes extended and localized spectral statistics.
+The disorder-averaged quantity
+
+[
+\langle r\rangle
+]
+
+is used to distinguish extended and localized spectral statistics.
 
 The finite-size scaling variable is
 
-\[
+[
 (W-W_c)L^{1/\nu}.
-\]
+]
 
 ---
 
@@ -157,9 +219,9 @@ anderson-localization-modified-lattices/
 
 The Python calculations require:
 
-- Python 3
-- NumPy
-- SciPy
+* Python 3
+* NumPy
+* SciPy
 
 Install the required packages with
 
@@ -167,7 +229,7 @@ Install the required packages with
 python -m pip install numpy scipy
 ```
 
-On Windows, the Python launcher may be used:
+On Windows, the Python launcher may alternatively be used:
 
 ```bash
 py -m pip install numpy scipy
@@ -205,33 +267,33 @@ py 8NN/python/run_level_spacing_8nn.py
 
 For macOS or Linux, replace `py` with `python3`.
 
-The Python scripts calculate eigenvalues and eigenvectors close to the band center, \(E=0\), using sparse diagonalization.
+The Python scripts calculate eigenvalues and eigenvectors close to the band center, (E=0), using sparse diagonalization.
 
 ---
 
 ## Important note about calculation parameters
 
-The default parameters currently included in the Python runner scripts are small test settings intended to verify that the programs run correctly.
+The default parameters included in the Python runner scripts are small test settings intended primarily to verify that the programs execute correctly.
 
-For example, the demonstration files use a small lattice and a small number of disorder realizations. These test calculations are not expected to reproduce the statistically converged results reported in the manuscript.
+These demonstration calculations are not expected to reproduce the statistically converged numerical results reported in the manuscript.
 
-Large-scale production calculations require:
+The production calculations used in the study employed:
 
-- larger lattice sizes;
-- a denser disorder grid;
-- more eigenvalues near the band center;
-- many independent disorder realizations;
-- substantially greater computing time and memory.
+* larger lattice sizes;
+* denser disorder grids;
+* more eigenstates near the band center;
+* many independent disorder realizations;
+* substantially greater computing time and memory.
 
-The processed numerical data used for the manuscript figures are provided in the corresponding `data/paper/` directories.
+The processed numerical results used for the 7NN and 8NN band-center scaling analyses are provided in the corresponding `data/paper/` directories.
 
 ---
 
-## MATLAB plotting scripts
+## MATLAB plotting and scaling scripts
 
-The MATLAB scripts automatically locate the required data files relative to their own locations. Therefore, the MATLAB working directory does not need to be manually set to the data folder.
+The MATLAB scripts automatically locate the required data files relative to their own locations. The MATLAB working directory therefore does not need to be manually changed to the data directory.
 
-### 7NN figures
+### 7NN analysis
 
 Run:
 
@@ -242,7 +304,7 @@ Run:
 7NN/matlab/collapse_level_spacing_7nn.m
 ```
 
-### 8NN figures
+### 8NN analysis
 
 Run:
 
@@ -253,7 +315,11 @@ Run:
 8NN/matlab/collapse_level_spacing_8nn.m
 ```
 
-The plotting scripts reproduce the raw disorder-dependent curves. The collapse scripts apply the critical parameters specified near the beginning of each MATLAB file.
+The IPR plotting scripts reproduce the averaged logarithmic IPR and typical-IPR curves contained in the repository.
+
+The level-spacing scripts reproduce the corresponding disorder-dependent level-spacing-ratio curves.
+
+The collapse scripts reproduce the finite-size scaling analyses using the critical parameters specified in the corresponding MATLAB files.
 
 ---
 
@@ -272,7 +338,9 @@ ipr_8nn_L6.csv
 level_spacing_8nn_L6.csv
 ```
 
-were generated using small test calculations. They are included to demonstrate the output format and verify that the Python workflow functions correctly.
+were generated using small test calculations.
+
+They are included to demonstrate the output format and verify that the Python workflow functions correctly. They should not be interpreted as the final production data reported in the manuscript.
 
 ### Paper data
 
@@ -283,29 +351,44 @@ The files inside
 8NN/data/paper/
 ```
 
-contain the processed disorder-averaged data used directly for the manuscript plots and finite-size scaling analysis.
+contain the processed numerical data used for the 7NN and 8NN band-center level-spacing and typical-IPR plots and finite-size scaling analyses reported in the manuscript.
 
-Individual Hamiltonian matrices, eigenvectors, and data from every disorder realization are not included because of their substantially larger storage requirements.
+For the IPR calculations, these files contain the averaged logarithmic IPR,
+
+[
+\langle\ln(\mathrm{IPR})\rangle,
+]
+
+and the corresponding typical IPR,
+
+[
+\mathrm{IPR}_{\mathrm{typ}}
+===========================
+
+\exp[\langle\ln(\mathrm{IPR})\rangle].
+]
+
+Individual Hamiltonian matrices, eigenvectors, and results from every individual disorder realization are not included because of their substantially larger storage requirements.
 
 ---
 
-## Reproducing the figures
+## Reproducing the band-center scaling analyses
 
-To reproduce a figure:
+To reproduce one of the supplied plots or scaling analyses:
 
 1. Clone or download the complete repository.
 2. Keep the directory structure unchanged.
 3. Open the corresponding MATLAB script.
 4. Run the script.
-5. The script will read the appropriate file from the `data/paper/` directory.
+5. The script will automatically read the required processed data from the appropriate `data/paper/` directory.
 
-For example, the 7NN IPR-collapse figure is generated by
+For example, the 7NN typical-IPR scaling collapse is generated using
 
 ```text
 7NN/matlab/collapse_ipr_7nn.m
 ```
 
-using
+with the processed data stored in
 
 ```text
 7NN/data/paper/ipr_7nn_paper.log
@@ -313,33 +396,58 @@ using
 
 ---
 
+## Scope of the archived data
+
+The repository is intended primarily to document and reproduce the numerical workflow associated with the **7NN and 8NN band-center finite-size scaling analyses**.
+
+It contains:
+
+* lattice-generation routines for the modified 7NN and 8NN lattices;
+* typical-IPR calculations near the band center;
+* consecutive level-spacing-ratio calculations near the band center;
+* processed production data for the corresponding finite-size scaling analyses;
+* MATLAB scripts for plotting and scaling these quantities.
+
+Large raw datasets, individual disorder realizations, complete eigenvector datasets, and Hamiltonian matrices from the production calculations are not included because of their storage requirements.
+
+Additional numerical data associated with the study may be obtained from the authors upon reasonable request.
+
+---
+
 ## Numerical considerations
 
-Sparse diagonalization near the band center can occasionally experience convergence difficulties, especially for clean or nearly degenerate systems.
+Sparse diagonalization near the band center can occasionally experience convergence difficulties, particularly for clean or nearly degenerate systems.
 
-The Python scripts use shift-invert diagonalization with a small nonzero spectral shift and increased iteration parameters to improve numerical convergence.
+The Python scripts use shift-invert sparse diagonalization with a small nonzero spectral shift and suitable iteration parameters to improve numerical convergence.
 
-Large production calculations should preferably be performed on a high-performance computing system.
+Large production calculations should preferably be performed using high-performance computing resources.
 
 ---
 
 ## Citation
 
-This repository accompanies the manuscript:
+This repository accompanies the article:
 
 > **Influence of local connectivity on the Anderson transition beyond bandwidth broadening**
 
-The complete journal citation and DOI will be added after publication.
+**Mohammed Zahid Malik and Raja Ghosh**
 
-When using the codes or processed data, please cite the associated manuscript and this repository.
+*Physical Review B* (2026).
+
+The complete volume, article number, and final DOI will be added after publication.
+
+When using the codes or processed numerical data, please cite the associated article and this repository.
 
 ---
 
 ## Authors
 
-Repository maintained by **Zahid Malik**.
+Repository maintained by **Mohammed Zahid Malik**.
 
-Additional author and institutional information can be added after publication.
+The associated research article is authored by:
+
+* Mohammed Zahid Malik
+* Raja Ghosh
 
 ---
 
