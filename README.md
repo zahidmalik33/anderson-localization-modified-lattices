@@ -453,6 +453,9 @@ The associated research article is authored by:
 
 ## License
 
-No reuse license has currently been assigned.
+The source code in this repository is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for details.
 
-Until a license is added, the code and data remain protected by default copyright and should not be redistributed or reused without permission.
+The processed numerical data included in this repository are associated with
+the accompanying research article. A formal license for the archived data
+will be specified in the Zenodo release.
