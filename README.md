@@ -4,11 +4,11 @@ This repository contains numerical codes and processed data associated with the 
 
 **Influence of local connectivity on the Anderson transition beyond bandwidth broadening**
 
-The work investigates Anderson localization in modified three-dimensional cubic lattices with coordination numbers (7) and (8). The localization transition is characterized using the consecutive level-spacing ratio and the inverse participation ratio (IPR).
+The work investigates Anderson localization in modified three-dimensional cubic lattices with coordination numbers 7 and 8. The localization transition is characterized using the consecutive level-spacing ratio and the inverse participation ratio (IPR).
 
 For the IPR finite-size scaling analysis, the **typical IPR**
 
-[
+$$
 \mathrm{IPR}_{\mathrm{typ}}
 ===========================
 
@@ -17,7 +17,7 @@ For the IPR finite-size scaling analysis, the **typical IPR**
 \ln(\mathrm{IPR})
 \right\rangle
 \right]
-]
+$$
 
 is used.
 
@@ -29,20 +29,19 @@ Python is used to construct the lattice Hamiltonians and perform the numerical d
 
 The single-particle Anderson Hamiltonian is
 
-[
+$$
 H=-t\sum_{\langle i,j\rangle}
 \left(c_i^\dagger c_j+c_j^\dagger c_i\right)
 +\sum_i \epsilon_i c_i^\dagger c_i ,
-]
+$$
 
 where:
 
-* (t=1) is the hopping amplitude;
-* (\langle i,j\rangle) denotes connected site pairs (hopping bonds);
-* (\epsilon_i) is the random on-site energy;
-* (\epsilon_i) is sampled independently from the uniform distribution
-  ([-W/2,W/2]);
-* (W) is the disorder strength;
+* $t=1$ is the hopping amplitude;
+* $\langle i,j\rangle$ denotes connected site pairs (hopping bonds);
+* $\epsilon_i$ is the random on-site energy;
+* $\epsilon_i$ is sampled independently from the uniform distribution $[-W/2,W/2]$;
+* $W$ is the disorder strength;
 * periodic boundary conditions are used.
 
 Two modified cubic lattice realizations are considered.
@@ -53,9 +52,9 @@ The 7NN lattice is obtained by supplementing the ordinary simple-cubic hopping n
 
 The resulting lattice has a uniform coordination number
 
-[
+$$
 \mathrm{CN}=7
-]
+$$
 
 under periodic boundary conditions.
 
@@ -65,9 +64,9 @@ The 8NN lattice is constructed by introducing two additional diagonal hopping co
 
 The resulting lattice has a uniform coordination number
 
-[
+$$
 \mathrm{CN}=8
-]
+$$
 
 under periodic boundary conditions.
 
@@ -79,18 +78,18 @@ The lattice-generation scripts verify that the Hamiltonian is symmetric and that
 
 ### Inverse participation ratio
 
-For a normalized eigenstate (\psi_n), the inverse participation ratio is
+For a normalized eigenstate $\psi_n$, the inverse participation ratio is
 
-[
+$$
 \mathrm{IPR}_n
 ==============
 
-\sum_i |\psi_n(i)|^4.
-]
+\sum_i |\psi_n(i)|^4 .
+$$
 
 For the band-center finite-size scaling analysis, the logarithmic IPR is averaged over the selected eigenstates and disorder realizations. The typical IPR is then calculated as
 
-[
+$$
 \mathrm{IPR}_{\mathrm{typ}}
 ===========================
 
@@ -99,66 +98,66 @@ For the band-center finite-size scaling analysis, the logarithmic IPR is average
 \ln(\mathrm{IPR})
 \right\rangle
 \right].
-]
+$$
 
 The corresponding scaling form is
 
-[
+$$
 \mathrm{IPR}_{\mathrm{typ}}(W,L)
 ================================
 
 L^{-D_2}
 F\left[(W-W_c)L^{1/\nu}\right],
-]
+$$
 
-where (W_c) is the critical disorder strength, (\nu) is the correlation-length exponent, and (D_2) is the correlation (multifractal) dimension.
+where $W_c$ is the critical disorder strength, $\nu$ is the correlation-length exponent, and $D_2$ is the correlation (multifractal) dimension.
 
-The processed data therefore contain both
+The processed IPR data therefore contain both
 
-[
+$$
 \left\langle\ln(\mathrm{IPR})\right\rangle
-]
+$$
 
 and
 
-[
+$$
 \mathrm{IPR}_{\mathrm{typ}}
 ===========================
 
 \exp\left[
 \left\langle\ln(\mathrm{IPR})\right\rangle
 \right].
-]
+$$
 
 ### Consecutive level-spacing ratio
 
-For ordered eigenvalues (E_n), the consecutive level spacings are
+For ordered eigenvalues $E_n$, the consecutive level spacings are
 
-[
-\delta_n=E_{n+1}-E_n.
-]
+$$
+\delta_n=E_{n+1}-E_n .
+$$
 
 The consecutive level-spacing ratio is
 
-[
+$$
 r_n=
 \frac{\min(\delta_n,\delta_{n+1})}
 {\max(\delta_n,\delta_{n+1})}.
-]
+$$
 
 The disorder-averaged quantity
 
-[
+$$
 \langle r\rangle
-]
+$$
 
 is used to distinguish extended and localized spectral statistics.
 
 The finite-size scaling variable is
 
-[
+$$
 (W-W_c)L^{1/\nu}.
-]
+$$
 
 ---
 
@@ -168,6 +167,7 @@ The finite-size scaling variable is
 anderson-localization-modified-lattices/
 │
 ├── README.md
+├── LICENSE
 ├── .gitignore
 │
 ├── 7NN/
@@ -267,7 +267,7 @@ py 8NN/python/run_level_spacing_8nn.py
 
 For macOS or Linux, replace `py` with `python3`.
 
-The Python scripts calculate eigenvalues and eigenvectors close to the band center, (E=0), using sparse diagonalization.
+The Python scripts calculate eigenvalues and eigenvectors close to the band center, $E=0$, using sparse diagonalization.
 
 ---
 
@@ -355,18 +355,18 @@ contain the processed numerical data used for the 7NN and 8NN band-center level-
 
 For the IPR calculations, these files contain the averaged logarithmic IPR,
 
-[
+$$
 \langle\ln(\mathrm{IPR})\rangle,
-]
+$$
 
 and the corresponding typical IPR,
 
-[
+$$
 \mathrm{IPR}_{\mathrm{typ}}
 ===========================
 
 \exp[\langle\ln(\mathrm{IPR})\rangle].
-]
+$$
 
 Individual Hamiltonian matrices, eigenvectors, and results from every individual disorder realization are not included because of their substantially larger storage requirements.
 
@@ -453,9 +453,6 @@ The associated research article is authored by:
 
 ## License
 
-The source code in this repository is licensed under the MIT License.
-See the [LICENSE](LICENSE) file for details.
+The source code in this repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-The processed numerical data included in this repository are associated with
-the accompanying research article. A formal license for the archived data
-will be specified in the Zenodo release.
+The processed numerical data included in this repository are associated with the accompanying research article. A formal license for the archived data will be specified in the Zenodo release.
