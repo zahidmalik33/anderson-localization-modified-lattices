@@ -1,8 +1,8 @@
-# Anderson Localization in Modified 3D Lattices
+# Influence of local connectivity on the Anderson transition beyond bandwidth broadening
 
 This repository contains the numerical codes and processed data used in the study:
 
-**Anderson Localization in Modified 3D Lattices with Increased Coordination Numbers**
+**Influence of local connectivity on the Anderson transition beyond bandwidth broadening**
 
 The project investigates Anderson localization in modified three-dimensional cubic lattices with coordination numbers 7 and 8. The numerical analysis uses the typical inverse participation ratio and the consecutive level-spacing ratio to characterize the transition between extended and localized states.
 
@@ -327,7 +327,7 @@ Large production calculations should preferably be performed on a high-performan
 
 This repository accompanies the manuscript:
 
-> **Anderson Localization in Modified 3D Lattices with Increased Coordination Numbers**
+> > **Influence of local connectivity on the Anderson transition beyond bandwidth broadening**
 
 The complete journal citation and DOI will be added after publication.
 
